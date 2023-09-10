@@ -1,0 +1,10 @@
+.backButton {
+  gap: 10px;
+  padding: 10px;
+  background-color: transparent;
+
+  img {
+    transform: rotate(-180deg);
+    width: 20px;
+  }
+}

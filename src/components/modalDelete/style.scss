@@ -1,0 +1,53 @@
+@import "../../styles/colors.scss";
+
+.newBoardModal-container {
+  .modalBackground {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    inset: 0;
+  }
+
+  .modalContent {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 540px;
+    height: auto;
+    padding: 32px;
+    background-color: #fff;
+    border-radius: 6px;
+  }
+
+  .modalContent .title {
+    width: fit-content;
+    text-align: center;
+    margin: 0 auto 24px;
+  }
+
+  .button-div {
+    gap: 40px;
+    margin: auto !important;
+    width: fit-content;
+
+    button {
+      padding: 0 24px;
+      height: 40px;
+      color: $color-white-blue;
+    }
+
+    button:first-child {
+      background-color: $color-blue;
+    }
+
+    button:last-child {
+      background-color: $color-red;
+    }
+  }
+
+  .message {
+    margin-top: 20px;
+    text-align: center;
+  }
+}

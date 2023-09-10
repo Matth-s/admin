@@ -1,0 +1,31 @@
+@import "../../styles/colors.scss";
+
+.viewMaterial-container {
+  width: min-content;
+  margin: 0 auto 40px;
+
+  h2 {
+    text-align: center;
+  }
+
+  .material-container {
+    gap: 150px;
+    width: min-content;
+    margin: auto;
+  }
+
+  .button-div {
+    gap: 40px;
+    width: fit-content;
+    margin: 40px auto 70px;
+
+    button {
+      padding: 0 24px;
+    }
+
+    button:first-child {
+      background-color: $color-blue;
+      color: $color-white-blue;
+    }
+  }
+}

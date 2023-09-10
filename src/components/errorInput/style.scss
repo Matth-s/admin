@@ -1,0 +1,8 @@
+@import "../../styles/colors.scss";
+
+.errorText {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: $color-red;
+}

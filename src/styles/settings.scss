@@ -1,0 +1,110 @@
+@import "./colors.scss";
+
+.app {
+  position: relative;
+  min-height: 100vh;
+}
+
+* {
+  font-family: Jost, sans-serif;
+  font-style: normal;
+}
+
+button,
+input[type="submit"] {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: normal;
+}
+
+/********************************************************************* flex *********************************************************************/
+.flex {
+  display: flex;
+
+  &__alignCenter {
+    align-items: center;
+  }
+
+  &__spacebetween {
+    justify-content: space-between;
+  }
+
+  &__spaceAround {
+    justify-content: space-around;
+  }
+}
+
+/********************************************************************* form *********************************************************************/
+
+.form-div {
+  margin-bottom: 16px;
+  position: relative;
+}
+
+input,
+select,
+textarea {
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  background-color: $color-white-blue;
+}
+
+input,
+select {
+  height: 48px;
+}
+
+textarea {
+  height: 96px;
+}
+
+input[type="submit"] {
+  margin-top: 16px;
+  background-color: $color-purple;
+  color: $color-white-blue;
+}
+
+label {
+  display: block;
+  margin-bottom: 16px;
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+.loading {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+button,
+input[type="submit"] {
+  cursor: pointer;
+  height: 40px;
+  border-radius: 12px;
+}
+
+.checkbox-div {
+  display: flex;
+  width: max-content;
+  height: auto;
+  gap: 10px;
+  margin: auto;
+  padding: 5px 10px;
+  margin-top: 20px;
+
+  label {
+    display: unset;
+    height: 20px;
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+
+  input[type="checkbox"] {
+    width: 20px;
+    height: 20px !important;
+    cursor: pointer;
+  }
+}

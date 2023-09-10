@@ -1,0 +1,20 @@
+.home-container {
+  height: auto;
+
+  .material-section {
+    width: 90%;
+    margin: 0 auto 40px;
+  }
+
+  .cardItem-container:not(:last-child) {
+    border-bottom: 1px solid grey;
+    margin-bottom: 40px;
+  }
+
+  .linkMaterial {
+    display: block;
+    margin: auto;
+    width: fit-content;
+    text-decoration: underline;
+  }
+}

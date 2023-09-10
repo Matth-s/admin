@@ -1,0 +1,30 @@
+.cardDescription-container {
+  width: 600px;
+
+  .title {
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    margin-bottom: 42px;
+  }
+
+  .description {
+    margin-bottom: 32px;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 25px;
+  }
+
+  .disponilibility {
+    margin-bottom: 25px;
+  }
+
+  .price {
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1.286px;
+  }
+}

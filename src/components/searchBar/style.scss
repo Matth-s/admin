@@ -1,0 +1,19 @@
+.searchbar-container {
+  width: 400px;
+  margin: 0 auto 40px;
+  gap: 10px;
+  border: 1px solid black;
+
+  border-radius: 100px;
+  padding: 4px;
+
+  input {
+    border-radius: 100px;
+    padding: 0 20px;
+  }
+
+  img {
+    width: 30px;
+    height: 30px;
+  }
+}

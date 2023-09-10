@@ -1,0 +1,38 @@
+@import "../../styles/colors.scss";
+
+.cardItem-container {
+  width: 100%;
+  height: auto;
+  padding-bottom: 20px;
+
+  .image-div {
+    max-width: 300px;
+    max-height: 300px;
+    width: 300px;
+    height: auto;
+
+    img {
+      display: block;
+      margin: auto;
+      max-width: 300px;
+      max-height: 300px;
+    }
+  }
+
+  section {
+    width: 500px;
+    max-height: 191px;
+    overflow: hidden;
+    text-align: justify;
+  }
+
+  .title {
+    margin-bottom: 20px;
+  }
+
+  button {
+    width: 200px;
+    background-color: $color-blue-gray;
+    color: $color-white;
+  }
+}

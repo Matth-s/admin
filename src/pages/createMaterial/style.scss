@@ -1,0 +1,18 @@
+@import "../../styles/colors.scss";
+
+.createMaterial-container {
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  background-color: $color-white-blue;
+
+  .createMaterial-section {
+    width: auto;
+    width: min-content;
+    margin: auto;
+  }
+
+  .backButton {
+    margin-bottom: 20px;
+  }
+}
