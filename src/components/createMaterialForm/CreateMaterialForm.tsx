@@ -24,6 +24,7 @@ const initialFormData: Material = {
   pricePerDay: 0,
   disponibility: true,
   visible: true,
+  bookingDate: [],
 };
 
 const CreateMaterialForm = () => {
@@ -183,7 +184,7 @@ const CreateMaterialForm = () => {
         <input
           className={`${isLoading ? "loading" : ""}`}
           type="submit"
-          value="Créer le matériel"
+          value={isLoading ? "En cours ..." : "Créer le matériel"}
         />
       </form>
     </div>

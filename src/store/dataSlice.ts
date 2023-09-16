@@ -23,6 +23,7 @@ const initialState: DataState = {
     pricePerDay: 0,
     disponibility: false,
     visible: true,
+    bookingDate: [],
   },
   dataMaterialSearch: [],
   searchText: "",
@@ -54,7 +55,6 @@ export const dataSlice = createSlice({
       );
 
       state.dataMaterial.push(updatedMaterial);
-
       state.viewMaterial = updatedMaterial;
     },
     setSearch: (state, action: PayloadAction<string>) => {

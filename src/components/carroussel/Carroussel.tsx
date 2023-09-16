@@ -12,10 +12,6 @@ type Props = {
 const Carrousel = ({ imageArray, imagePresentation }: Props) => {
   const [img, setImg] = useState<string>(imagePresentation);
 
-  useEffect(() => {
-    console.log(imagePresentation, imageArray);
-  }, []);
-
   const hoverHandler = (image: Images) => {
     setImg(image.image);
   };

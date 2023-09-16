@@ -8,6 +8,7 @@ const Header = () => {
         <ul className="flex">
           <NavLink to={"/"}>Accueil</NavLink>
           <NavLink to={"/create-material"}>Créer un materiel</NavLink>
+          <NavLink to={"/planning"}>Planning</NavLink>
         </ul>
       </nav>
     </header>

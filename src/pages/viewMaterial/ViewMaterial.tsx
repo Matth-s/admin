@@ -9,23 +9,27 @@ import Loader from "../../components/loader/Loader";
 import Delete from "../../components/deleteButton/Delete";
 import DeleteModal from "../../components/modalDelete/DeleteModal";
 import CardDescription from "../../components/cardDescription/CardDescription";
-import EditMaterial from "../../components/editMaterial/EditMaterial";
+import BackButton from "../../components/backButton/BackButton";
+import AddDateBooking from "../../components/buttonAddDateBooking/AddDateBooking";
+import EditButton from "../../components/editingButton/EditButton";
+import ModalAddBooking from "../../components/modalAddBooking/AddBookingModal";
 
 import "./style.scss";
-import BackButton from "../../components/backButton/BackButton";
 
 const ViewMaterial = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
   const { id } = useParams<{ id: string }>();
   const { viewMaterial } = useAppSelector((state) => state.data);
   const [isLoading, setIsLoading] = useState<boolean>();
-  const [isEditing, setIsEditing] = useState<boolean>(false);
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
+  const [openBookingModal, setOpenBookingModal] = useState<boolean>(false);
 
   useEffect(() => {
     if (viewMaterial.id === "" && id) {
       setIsLoading(true);
+
       const fetch = async () => {
         await dispatch(getMaterialById(id))
           .unwrap()
@@ -44,32 +48,6 @@ const ViewMaterial = () => {
     setIsLoading(false);
   }, []);
 
-  const material = (
-    <div className="material-container flex">
-      <div>
-        <Carrousel
-          imageArray={viewMaterial.pictureArray}
-          imagePresentation={viewMaterial.presentationPicture}
-        />
-      </div>
-
-      <CardDescription
-        name={viewMaterial.name}
-        description={viewMaterial.description}
-        date={viewMaterial.date}
-        disponibility={viewMaterial.disponibility}
-        pricePerDay={viewMaterial.pricePerDay}
-        downPayment={viewMaterial.downPayment}
-      />
-    </div>
-  );
-
-  const editMaterial = (
-    <div className="flex flex__alignCenter flex__spaceAround">
-      <EditMaterial setIsEditing={setIsEditing} material={viewMaterial} />
-    </div>
-  );
-
   return (
     <div>
       <Header />
@@ -79,6 +57,7 @@ const ViewMaterial = () => {
         <section className="viewMaterial-container">
           <BackButton />
 
+          {/* Modal */}
           {openDeleteModal && (
             <DeleteModal
               name={viewMaterial.name}
@@ -86,16 +65,41 @@ const ViewMaterial = () => {
               id={viewMaterial.id}
             />
           )}
+
+          {openBookingModal && (
+            <ModalAddBooking
+              materialId={viewMaterial.id}
+              name={viewMaterial.name}
+              setOpenBookingModal={setOpenBookingModal}
+              disableDate={viewMaterial.bookingDate}
+            />
+          )}
+
           <h2>{viewMaterial.name}</h2>
 
           <div className="flex button-div">
-            <button onClick={() => setIsEditing((prev) => !prev)}>
-              {isEditing ? "Annuler" : "Editer"}
-            </button>
+            <AddDateBooking setOpenBookingModal={setOpenBookingModal} />
+            <EditButton />
             <Delete setOpenDeleteModal={setOpenDeleteModal} />
           </div>
 
-          {isEditing ? editMaterial : material}
+          <div className="material-container flex">
+            <div>
+              <Carrousel
+                imageArray={viewMaterial.pictureArray}
+                imagePresentation={viewMaterial.presentationPicture}
+              />
+            </div>
+
+            <CardDescription
+              name={viewMaterial.name}
+              description={viewMaterial.description}
+              date={viewMaterial.date}
+              disponibility={viewMaterial.disponibility}
+              pricePerDay={viewMaterial.pricePerDay}
+              downPayment={viewMaterial.downPayment}
+            />
+          </div>
         </section>
       )}
     </div>

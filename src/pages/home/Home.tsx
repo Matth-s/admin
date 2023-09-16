@@ -1,19 +1,19 @@
 import { NavLink } from "react-router-dom";
 import { useAppSelector } from "../../store/hooks";
+import { useMemo } from "react";
 
 import CardItem from "../../components/cardItem/CardItem";
 import Header from "../../components/header/Header";
 import Loader from "../../components/loader/Loader";
+import SearchBar from "../../components/searchBar/SearchBar";
 
 import "./style.scss";
-import SearchBar from "../../components/searchBar/SearchBar";
-import { useMemo } from "react";
 
 type Props = {
-  isLoading: boolean;
+  isLoadingMaterial: boolean;
 };
 
-const Home = ({ isLoading }: Props) => {
+const Home = ({ isLoadingMaterial }: Props) => {
   const { dataMaterial, searchText } = useAppSelector((state) => state.data);
 
   const data = useMemo(() => {
@@ -22,13 +22,15 @@ const Home = ({ isLoading }: Props) => {
     );
   }, [dataMaterial, searchText]);
 
-  console.log("render");
-
   return (
     <div className="home-container">
       <Header />
-      {isLoading ? (
-        <Loader />
+
+      {isLoadingMaterial ? (
+        <div className="loader-container">
+          <h1>Chargement des données ...</h1>
+          <Loader />
+        </div>
       ) : dataMaterial.length > 0 ? (
         <section className="material-section">
           <SearchBar />

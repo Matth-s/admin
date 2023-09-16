@@ -50,7 +50,7 @@ const DeleteModal = ({ setOpenDeleteModal, name, id }: Props) => {
       ></div>
 
       <div className="modalContent">
-        <h1 className="title">Confirmer la suppression de "{name}" </h1>
+        <h1 className="title">Confirmez-vous la suppression de "{name}" ?</h1>
 
         <div className="button-div flex">
           <button

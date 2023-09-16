@@ -10,6 +10,7 @@ export interface Material {
   pricePerDay: number;
   disponibility: boolean;
   visible: boolean;
+  bookingDate: string[] | [];
 }
 
 export interface Images {
@@ -26,4 +27,14 @@ export interface FileImport {
   webkitRelativePath: string;
   lastModifiedDate: object;
   type: string;
+}
+
+export interface Reservation {
+  email: string;
+  phone: string;
+  city: string;
+  address: string;
+  bookingDate: string[] | [];
+  firstName: string;
+  lastName: string;
 }

@@ -25,7 +25,6 @@ const PrivateRoutes = () => {
   }, []);
 
   if (isUserAuthenticated === null) {
-    // Vous pouvez ajouter ici une logique de chargement si nécessaire
     return <Loader />;
   }
 

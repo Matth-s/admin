@@ -1,23 +1,29 @@
 import React, { useState } from "react";
 
-import { Material } from "../../schema";
+import { FileImport, Material } from "../../schema";
 import { useInputChange } from "../../hooks/form";
 import { useAppDispatch } from "../../store/hooks";
 import { updateMaterialById } from "../../services/firebaseRequest";
 import { useAppSelector } from "../../store/hooks";
+import { useNavigate } from "react-router-dom";
+
+import EditDropZone from "../editDropZone/EditDropZone";
 
 import "./style.scss";
 
 type Props = {
   material: Material;
-  setIsEditing: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const EditMaterial = ({ material, setIsEditing }: Props) => {
-  const { token } = useAppSelector((state) => state.user);
+const EditMaterialForm = ({ material }: Props) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { token } = useAppSelector((state) => state.user);
   const { formData, handleInputChange } = useInputChange(material);
-  const [isLoading, setIsLoading] = useState(false);
+
+  const [importNewFile, setImportNewFile] = useState<FileImport[] | []>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,9 +37,9 @@ const EditMaterial = ({ material, setIsEditing }: Props) => {
       })
     )
       .unwrap()
-      .then((status) => {
-        if (status === 200) {
-          setIsEditing(false);
+      .then((res) => {
+        if (res === 200) {
+          navigate(-1);
         }
       })
       .catch((error) => console.log(error))
@@ -142,14 +148,21 @@ const EditMaterial = ({ material, setIsEditing }: Props) => {
           />
         </div>
 
+        <div>
+          <EditDropZone
+            importNewFile={importNewFile}
+            setImportNewFile={setImportNewFile}
+          />
+        </div>
+
         <input
-          className={`${isLoading ? "isLoading" : ""}`}
+          className={`${isLoading ? "loading" : ""}`}
           type="submit"
-          value="Modifier"
+          value="Enregistrer"
         />
       </form>
     </div>
   );
 };
 
-export default EditMaterial;
+export default EditMaterialForm;

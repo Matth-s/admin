@@ -1,4 +1,4 @@
-import { FileImport, Material } from "../schema";
+import { FileImport, Material, Reservation } from "../schema";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
@@ -14,6 +14,7 @@ import {
   updateMaterial,
 } from "../store/dataSlice";
 import { setToken } from "../store/userSlice";
+import { setBookingData } from "../store/bookingSlice";
 
 const url = "https://backendlocation.onrender.com";
 const local = "http://localhost:3000";
@@ -34,10 +35,11 @@ export const getMaterialById = createAsyncThunk(
   async (id: string, { dispatch }) => {
     try {
       const { data, status } = await axios.get(`${local}/api/material/${id}`);
+
       dispatch(setViewMaterial(data[0]));
       return status;
     } catch (error) {
-      return error;
+      throw error;
     }
   }
 );
@@ -104,7 +106,7 @@ export const postMaterial = createAsyncThunk(
 
     try {
       const { data, status } = await axios.post(
-        `${local}/api/material`,
+        `${url}/api/material`,
         { material },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -159,7 +161,82 @@ export const updateMaterialById = createAsyncThunk(
       dispatch(updateMaterial(data));
       return status;
     } catch (error) {
-      console.error(error);
+      throw error;
+    }
+  }
+);
+
+//addDateBookingToMaterial
+export const addDateBookingToMaterial = createAsyncThunk(
+  "createBooking",
+  async (
+    {
+      materialId,
+      date,
+      token,
+    }: {
+      materialId: string;
+      date: string[] | [];
+      token: string | null;
+    },
+    { dispatch }
+  ) => {
+    try {
+      const { status, data } = await axios.post(
+        `${local}/api/booking/addDate`,
+        {
+          date: date,
+          id: materialId,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      dispatch(updateMaterial(data));
+      return status;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+// createBooking
+export const createBooking = createAsyncThunk(
+  "createBooking",
+  async (
+    {
+      reservation,
+      token,
+      name,
+    }: { reservation: Reservation; token: string | null; name: string },
+    { dispatch }
+  ) => {
+    try {
+      const { status, data } = await axios.post(
+        `${local}/api/booking/createBooking`,
+        {
+          reservation,
+          name,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      console.log(data);
+      return status;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+export const getBookingData = createAsyncThunk(
+  "getBookingData",
+  async ({ token }: { token: string | null }, { dispatch }) => {
+    try {
+      const { status, data } = await axios.get(`${local}/api/booking`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      dispatch(setBookingData(data));
+    } catch (error) {
+      throw error;
     }
   }
 );
