@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Material, Images, FileImport } from "../../schema";
+import { Material, FileImport } from "../../schema";
 import { v4 as uuidv4 } from "uuid";
 import { checkIsEmpty } from "../../helpers/checkFieldForm";
-import { uploadAndGetUrl, postMaterial } from "../../services/firebaseRequest";
+import { postMaterial } from "../../services/firebaseRequest";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useNavigate } from "react-router-dom";
 import { scrollTop } from "../../hooks/topPage";

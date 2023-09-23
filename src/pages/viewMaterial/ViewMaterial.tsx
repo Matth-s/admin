@@ -68,10 +68,12 @@ const ViewMaterial = () => {
 
           {openBookingModal && (
             <ModalAddBooking
-              materialId={viewMaterial.id}
-              name={viewMaterial.name}
               setOpenBookingModal={setOpenBookingModal}
               disableDate={viewMaterial.bookingDate}
+              pricePerDay={viewMaterial.pricePerDay}
+              downPayment={viewMaterial.downPayment}
+              materialId={viewMaterial.id}
+              materialName={viewMaterial.name}
             />
           )}
 

@@ -1,0 +1,31 @@
+table {
+  border: 1px solid gray;
+  width: 95%;
+  margin: auto;
+  text-align: center;
+  overflow-x: scroll;
+
+  thead tr {
+    border-bottom: 10px solid white;
+  }
+
+  tbody tr {
+    height: 40px;
+  }
+
+  td {
+    text-align: center;
+  }
+
+  img {
+    width: 15px;
+  }
+
+  button {
+    background-color: transparent;
+    height: 20px;
+    img {
+      width: 20px;
+    }
+  }
+}

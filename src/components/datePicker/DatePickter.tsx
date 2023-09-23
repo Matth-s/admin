@@ -7,11 +7,11 @@ import { eachDayOfInterval, format } from "date-fns";
 import "./style.scss";
 
 type Props = {
-  setSelectedDates: React.Dispatch<React.SetStateAction<string[] | []>>;
+  setBookingDate: React.Dispatch<React.SetStateAction<string[] | []>>;
   disableDate: string[] | [];
 };
 
-const DatePicker = ({ setSelectedDates, disableDate }: Props) => {
+const DatePicker = ({ setBookingDate, disableDate }: Props) => {
   const [dateSelected, setDateSelected] = useState([
     {
       startDate: new Date(),
@@ -19,14 +19,13 @@ const DatePicker = ({ setSelectedDates, disableDate }: Props) => {
       key: "selection",
     },
   ]);
-  const [disabledDates, setDisabledDates] = useState<Date[]>([]);
 
   const handleDateChange = (ranges: any) => {
     const startDate = ranges.selection.startDate;
     const endDate = ranges.selection.endDate;
     const datesBetween = eachDayOfInterval({ start: startDate, end: endDate });
     const arrayOfDate = datesBetween.map((date) => format(date, "dd/MM/yyyy"));
-    setSelectedDates(arrayOfDate);
+    setBookingDate(arrayOfDate);
 
     setDateSelected([
       {
@@ -38,8 +37,8 @@ const DatePicker = ({ setSelectedDates, disableDate }: Props) => {
   };
 
   const test = disableDate.map((dateString) => {
-    const [day, month, year] = dateString.split("/").map(Number); // Divise la chaîne en jour, mois et année
-    return new Date(year, month - 1, day); // Soustrait 1 du mois car les mois sont 0-indexés en JavaScript
+    const [day, month, year] = dateString.split("/").map(Number);
+    return new Date(year, month - 1, day);
   });
 
   return (

@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useAppSelector } from "../../store/hooks";
 import { useMemo } from "react";
+import { setSearchData } from "../../store/dataSlice";
 
 import CardItem from "../../components/cardItem/CardItem";
 import Header from "../../components/header/Header";
@@ -33,13 +34,13 @@ const Home = ({ isLoadingMaterial }: Props) => {
         </div>
       ) : dataMaterial.length > 0 ? (
         <section className="material-section">
-          <SearchBar />
+          <SearchBar searchText={searchText} setSearch={setSearchData} />
 
           <div>
             {searchText !== "" && (
               <p>
                 {data.length} résultat{data.length > 1 ? "s" : ""} pour "
-                {searchText}"{" "}
+                {searchText}"
               </p>
             )}
             {data.map((item) => (

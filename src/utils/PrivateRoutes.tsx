@@ -4,7 +4,11 @@ import { useEffect, useState } from "react";
 import { checkStatus } from "../services/firebaseRequest";
 import Loader from "../components/loader/Loader";
 
-const PrivateRoutes = () => {
+type Props = {
+  setCheckUser: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const PrivateRoutes = ({ setCheckUser }: Props) => {
   const dispatch = useAppDispatch();
   const [isUserAuthenticated, setIsUserAuthenticated] = useState<
     boolean | null
@@ -12,13 +16,17 @@ const PrivateRoutes = () => {
 
   useEffect(() => {
     const checkUserStatus = async () => {
-      try {
-        const res = await dispatch(checkStatus()).unwrap();
-        setIsUserAuthenticated(res === "user");
-      } catch (err) {
-        console.error(err);
-        setIsUserAuthenticated(false);
-      }
+      await dispatch(checkStatus())
+        .unwrap()
+        .then((res) => {
+          if (res === "user") {
+            setIsUserAuthenticated(true);
+          } else {
+            setIsUserAuthenticated(false);
+          }
+        })
+        .catch((error) => console.log(error))
+        .finally(() => setCheckUser(false));
     };
 
     checkUserStatus();

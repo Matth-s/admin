@@ -1,9 +1,9 @@
-import React from "react";
+import "./style.scss";
 import ConnectionForm from "../../components/connectionForm/ConnectionForm";
 
 const Connection = () => {
   return (
-    <div>
+    <div className="connection-container">
       <ConnectionForm />
     </div>
   );

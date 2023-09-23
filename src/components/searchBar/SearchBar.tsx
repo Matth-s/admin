@@ -1,17 +1,25 @@
-import { setSearch } from "../../store/dataSlice";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { useAppDispatch } from "../../store/hooks";
+
 import "./style.scss";
 
-const SearchBar = () => {
+type Props = {
+  searchText: string;
+  setSearch: any;
+};
+
+const SearchBar = ({ searchText, setSearch }: Props) => {
   const dispatch = useAppDispatch();
-  const { searchText } = useAppSelector((state) => state.data);
+
+  const onInputChange = (value: string) => {
+    dispatch(setSearch(value.trim()));
+  };
 
   return (
-    <div className="searchbar-container flex flex__alignCenter">
+    <div className="searchBar-container flex flex__alignCenter">
       <input
         type="text"
         defaultValue={searchText}
-        onChange={(e) => dispatch(setSearch(e.target.value))}
+        onChange={(e) => onInputChange(e.target.value)}
         placeholder="Recherche"
       />
 

@@ -37,4 +37,12 @@ export interface Reservation {
   bookingDate: string[] | [];
   firstName: string;
   lastName: string;
+  downPayment: number;
+  downPaymentIsPaid: boolean;
+  total: number;
+  totalIsPaid: boolean;
+  id: string;
+  materialName: string;
+  isCompleted: boolean;
+  materialId: string;
 }

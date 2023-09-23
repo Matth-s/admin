@@ -3,7 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { storage } from "../db/firebaseConfig";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import axios from "axios";
 
 import {
@@ -14,7 +14,12 @@ import {
   updateMaterial,
 } from "../store/dataSlice";
 import { setToken } from "../store/userSlice";
-import { setBookingData } from "../store/bookingSlice";
+import {
+  addDataBooking,
+  deleteBooking,
+  markAsCompleted,
+  setBookingData,
+} from "../store/bookingSlice";
 
 const url = "https://backendlocation.onrender.com";
 const local = "http://localhost:3000";
@@ -203,11 +208,7 @@ export const addDateBookingToMaterial = createAsyncThunk(
 export const createBooking = createAsyncThunk(
   "createBooking",
   async (
-    {
-      reservation,
-      token,
-      name,
-    }: { reservation: Reservation; token: string | null; name: string },
+    { reservation, token }: { reservation: Reservation; token: string | null },
     { dispatch }
   ) => {
     try {
@@ -215,11 +216,11 @@ export const createBooking = createAsyncThunk(
         `${local}/api/booking/createBooking`,
         {
           reservation,
-          name,
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      console.log(data);
+      dispatch(addDataBooking(data));
+
       return status;
     } catch (error) {
       throw error;
@@ -235,6 +236,79 @@ export const getBookingData = createAsyncThunk(
         headers: { Authorization: `Bearer ${token}` },
       });
       dispatch(setBookingData(data));
+      return status;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+//deleteBooking
+
+export const deleteBookingById = createAsyncThunk(
+  "deletebooking",
+  async ({ id, token }: { id: string; token: string | null }, { dispatch }) => {
+    try {
+      const { status } = await axios.delete(
+        `${local}/api/booking/deleteBooking/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      dispatch(deleteBooking(id));
+      return status;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+//deleteDisableDateMaterial
+export const deleteDateMaterial = createAsyncThunk(
+  "deleteDateMaterial",
+  async (
+    {
+      token,
+      id,
+      date,
+    }: { token: string | null; id: string; date: string | string[] },
+    { dispatch }
+  ) => {
+    try {
+      const { status, data } = await axios.put(
+        `${local}/api/booking/updateDate/${id}`,
+        {
+          date: date,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      dispatch(updateMaterial(data));
+
+      return status;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+export const markAsCompletedById = createAsyncThunk(
+  "markAsCompletedById",
+  async ({ id, token }: { id: string; token: string | null }, { dispatch }) => {
+    try {
+      const { status, data } = await axios.put(
+        `${local}/api/booking/markAsCompleted/${id}`,
+        null,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      dispatch(markAsCompleted(data));
+
+      return status;
     } catch (error) {
       throw error;
     }
@@ -290,3 +364,12 @@ export const checkStatus = createAsyncThunk(
     }
   }
 );
+export const logOut = createAsyncThunk("logOut", async (_, { dispatch }) => {
+  try {
+    const auth = getAuth();
+    await signOut(auth);
+    dispatch(setToken(null));
+  } catch (error) {
+    throw error;
+  }
+});

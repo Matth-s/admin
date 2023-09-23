@@ -1,0 +1,15 @@
+.connection-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: fit-content;
+
+  form {
+    width: 400px;
+    margin: auto;
+    border: 1px solid purple;
+    padding: 40px;
+    border-radius: 20px;
+  }
+}

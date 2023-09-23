@@ -33,7 +33,7 @@ export const dataSlice = createSlice({
   name: "data",
   initialState,
   reducers: {
-    setData: (state, action: PayloadAction<Material[]>) => {
+    setData: (state, action: PayloadAction<Material[] | []>) => {
       state.dataMaterial = action.payload;
     },
     addNewMaterial: (state, action: PayloadAction<Material>) => {
@@ -57,7 +57,7 @@ export const dataSlice = createSlice({
       state.dataMaterial.push(updatedMaterial);
       state.viewMaterial = updatedMaterial;
     },
-    setSearch: (state, action: PayloadAction<string>) => {
+    setSearchData: (state, action: PayloadAction<string>) => {
       state.searchText = action.payload;
     },
   },
@@ -69,7 +69,7 @@ export const {
   setViewMaterial,
   deleteMaterial,
   updateMaterial,
-  setSearch,
+  setSearchData,
 } = dataSlice.actions;
 export const selectData = (state: RootState) => state.data;
 export default dataSlice.reducer;
